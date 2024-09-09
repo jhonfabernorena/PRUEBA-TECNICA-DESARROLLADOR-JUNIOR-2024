@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>Lista de Corrales</h1>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Seleccionar Corral</mat-label>
+    <mat-select [(ngModel)]="selectedCorralId" (ngModelChange)="onCorralChange($event)">
+      <mat-option [value]="null">Mostrar Todos</mat-option>
+      <mat-option *ngFor="let corral of corrals" [value]="corral.id">
+        {{ corral.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="cards-grid">
+    <mat-card *ngFor="let corral of filteredCorrals"
+              [ngStyle]="{'background-color': corral.isHighRisk ? '#f8d7da' : '#d4edda'}"
+              class="corral-card">
+      <mat-card-header>
+        <mat-card-title>{{ corral.name }}</mat-card-title>
+        <mat-card-subtitle>Capacidad Total: {{ corral.capacity }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p [ngStyle]="{'color': corral.isHighRisk ? 'red' : 'green', 'font-weight': 'bold'}">
+          {{ corral.isHighRisk ? 'Violento' : 'No Violento' }}
+        </p>
+        <button mat-stroked-button color="primary" (click)="toggleAverageAge(corral.id)">
+          {{ isAverageAgeVisible(corral.id) ? 'Ocultar Edad Promedio' : 'Mostrar Edad Promedio' }}
+        </button>
+        <p *ngIf="isAverageAgeVisible(corral.id)" class="age-info">
+          Edad Promedio de los Animales: 
+          {{ averageAgeByCorral[corral.id] === null ? 'No hay Animales en este Corral, 0' : averageAgeByCorral[corral.id] }}
+        </p>
+        <button mat-stroked-button color="accent" (click)="toggleAnimals(corral.id)">
+          {{ isAnimalsVisible(corral.id) ? 'Ocultar Animales' : 'Mostrar Animales' }}
+        </button>
+
+        <div *ngIf="isAnimalsVisible(corral.id)" class="animals-list">
+          <ul>
+            <li *ngFor="let animal of animalsInSelectedCorral">
+              {{ animal.name }} - Edad: {{ animal.age }} - Riesgo: {{ animal.isHighRisk ? 'Alto' : 'Bajo' }}
+            </li>
+          </ul>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" (click)="onClose()">Cerrar</button>
+</mat-dialog-actions>

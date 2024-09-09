@@ -1,0 +1,35 @@
+.cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .corral-card {
+    width: 300px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+  
+  mat-card-header {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 8px 16px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .age-info {
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  
+  .animals-list ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  
+  .animals-list li {
+    margin-bottom: 5px;
+  }
+  
